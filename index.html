@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IT Asset Management Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #004c91;
+      color: #fff;
+      padding: 10px 20px;
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .header-buttons button {
+      background: #fff;
+      color: #004c91;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .header-buttons button:hover {
+      background: #e8e8e8;
+    }
+
+    .chart-section {
+      display: none;
+      margin: 15px 0;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .chart-container {
+      width: 250px;
+      height: 250px;
+      margin: 10px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .table-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    #searchInput {
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    #exportBtn {
+      background-color: #004c91;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #exportBtn:hover {
+      background-color: #033e74;
+    }
+
+    table {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>IT Asset Management System</h1>
+    <div class="header-buttons">
+      <button id="chartsBtn">Assets Overview</button>
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== CHARTS SECTION ===== -->
+    <section class="chart-section" id="chartsSection">
+      <div class="chart-container">
+        <canvas id="statusChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="typeChart"></canvas>
+      </div>
+    </section>
+
+    <!-- ===== ASSET FORM ===== -->
+    <section class="form-section">
+      <h2>Add / Edit Asset</h2>
+      <form id="assetForm">
+        <div class="form-row">
+          <select id="assetType" required>
+            <option value="" disabled selected>Select Asset Type</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Desktop">Desktop</option>
+            <option value="Server">Server</option>
+            <option value="Network Device">Network Device</option>
+            <option value="Software License">Software License</option>
+          </select>
+          <input type="text" id="assetName" placeholder="Asset Name" required />
+        </div>
+
+        <div class="form-row">
+          <select id="assetStatus" required>
+            <option value="" disabled selected>Status</option>
+            <option value="Available">Available</option>
+            <option value="In Use">In Use</option>
+            <option value="In Repair">In Repair</option>
+            <option value="Retired">Retired</option>
+          </select>
+          <input type="text" id="assignedTo" placeholder="Assigned To (optional)" />
+        </div>
+
+        <div class="form-row">
+          <input type="date" id="purchaseDate" required />
+        </div>
+
+        <button type="submit" id="submitBtn">Add Asset</button>
+      </form>
+    </section>
+
+    <!-- ===== SEARCH & EXPORT ===== -->
+    <section class="table-section">
+      <div class="table-header">
+        <h2>Asset Records</h2>
+        <div class="table-controls">
+          <input type="text" id="searchInput" placeholder="Search assets..." />
+          <button id="exportBtn">Export CSV</button>
+        </div>
+      </div>
+
+      <table id="assetTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Assigned To</th>
+            <th>Purchase Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
